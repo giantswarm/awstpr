@@ -47,9 +47,9 @@ var ClusterComponents = []ClusterComponent{APIComponent, WorkerComponent, EtcdCo
 // TLSAssetTypes is a slice of all the TLS assets we need to boot the cluster
 var TLSAssetTypes = []TLSAssetType{CA, Crt, Key}
 
-// ValidComponent matches el against the ClusterComponents, returning true if it found it, false if it didn't
-func ValidComponent(el ClusterComponent) bool {
-	for _, v := range ClusterComponents {
+// ValidComponent looks for el among the components
+func ValidComponent(el ClusterComponent, components []ClusterComponent) bool {
+	for _, v := range components {
 		if el == v {
 			return true
 		}
