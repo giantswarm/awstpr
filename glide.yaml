@@ -7,3 +7,9 @@ import:
   - pkg/api/v1
 - package: github.com/giantswarm/clustertpr
   version: 47bae764f0a168b9dac27e274515b1a5d03eea6b
+testImport:
+- package: github.com/stretchr/testify
+  version: v1.1.4
+  repo: git://github.com/stretchr/testify.git
+  subpackages:
+  - assert
