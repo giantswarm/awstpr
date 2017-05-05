@@ -5,5 +5,5 @@ const (
 	Kind = "Aws"
 
 	// PluralKind is the plural TPR kind for use in resource URLs.
-	PluralKind = "Awses"
+	PluralKind = "awses"
 )
