@@ -1,7 +1,7 @@
 package networksetup
 
 import (
-	"github.com/giantswarm/clustertpr/operator/networksetup/docker"
+	"github.com/giantswarm/clustertpr/kubernetes/networksetup/docker"
 )
 
 type NetworkSetup struct {
