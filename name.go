@@ -1,6 +1,5 @@
 package awstpr
 
 const (
-	Name   = "aws"
-	Domain = "cluster.giantswarm.io"
+	Name = "aws.cluster.giantswarm.io"
 )
