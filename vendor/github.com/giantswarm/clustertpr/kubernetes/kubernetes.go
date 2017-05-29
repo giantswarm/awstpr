@@ -5,8 +5,10 @@ import (
 	"github.com/giantswarm/clustertpr/kubernetes/dns"
 	"github.com/giantswarm/clustertpr/kubernetes/hyperkube"
 	"github.com/giantswarm/clustertpr/kubernetes/ingress"
+	"github.com/giantswarm/clustertpr/kubernetes/kubectl"
 	"github.com/giantswarm/clustertpr/kubernetes/kubelet"
 	"github.com/giantswarm/clustertpr/kubernetes/networksetup"
+	"github.com/giantswarm/clustertpr/kubernetes/ssh"
 )
 
 type Kubernetes struct {
@@ -17,6 +19,8 @@ type Kubernetes struct {
 	Domain            string                    `json:"domain" yaml:"domain"`
 	Hyperkube         hyperkube.Hyperkube       `json:"hyperkube" yaml:"hyperkube"`
 	IngressController ingress.IngressController `json:"ingressController" yaml:"ingressController"`
+	Kubectl           kubectl.Kubectl           `json:"kubectl" yaml:"kubectl"`
 	Kubelet           kubelet.Kubelet           `json:"kubelet" yaml:"kubelet"`
 	NetworkSetup      networksetup.NetworkSetup `json:"networkSetup" yaml:"networkSetup"`
+	SSH               ssh.SSH                   `json:"ssh" yaml:"ssh"`
 }
