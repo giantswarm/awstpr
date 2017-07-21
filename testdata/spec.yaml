@@ -62,15 +62,21 @@ cluster:
   - id: axx99
   - id: cdd88
 aws:
-  az: ""
+  region: eu-central-1
+  az: eu-central-1a
   hostedZones:
-    api: ""
-    etcd: ""
-    ingress: ""
-  region: ""
+    api: xxxxxxxxxxxxxx
+    etcd: yyyyyyyyyyyyyy
+    ingress: zzzzzzzzzzzzzz
   vpc:
-    cidr: ""
-    privateSubnetCidr: ""
-    publicSubnetCidr: ""
-  masters: []
-  workers: []
+    cidr: 10.0.0.0/16
+    privateSubnetCidr: 10.0.0.0/19
+    publicSubnetCidr: 10.0.128.0/20
+  masters:
+  - imageID: ami-d60ad6b9
+    instanceType: m3.large
+  workers:
+  - imageID: ami-d60ad6b9
+    instanceType: m3.large
+  - imageID: ami-d60ad6b9
+    instanceType: m3.large

@@ -8,6 +8,8 @@ import (
 	yaml "gopkg.in/yaml.v2"
 
 	"github.com/giantswarm/awstpr/aws"
+	"github.com/giantswarm/awstpr/aws/hostedzones"
+	"github.com/giantswarm/awstpr/aws/vpc"
 	"github.com/giantswarm/clustertpr"
 	"github.com/giantswarm/clustertpr/calico"
 	"github.com/giantswarm/clustertpr/cluster"
@@ -129,7 +131,36 @@ func TestSpecYamlEncoding(t *testing.T) {
 				},
 			},
 		},
-		AWS: aws.AWS{},
+		AWS: aws.AWS{
+			Region: "eu-central-1",
+			AZ:     "eu-central-1a",
+			VPC: vpc.VPC{
+				CIDR:              "10.0.0.0/16",
+				PrivateSubnetCIDR: "10.0.0.0/19",
+				PublicSubnetCIDR:  "10.0.128.0/20",
+			},
+			HostedZones: hostedzones.HostedZones{
+				API:     "xxxxxxxxxxxxxx",
+				Etcd:    "yyyyyyyyyyyyyy",
+				Ingress: "zzzzzzzzzzzzzz",
+			},
+			Masters: []aws.Node{
+				{
+					ImageID:      "ami-d60ad6b9",
+					InstanceType: "m3.large",
+				},
+			},
+			Workers: []aws.Node{
+				{
+					ImageID:      "ami-d60ad6b9",
+					InstanceType: "m3.large",
+				},
+				{
+					ImageID:      "ami-d60ad6b9",
+					InstanceType: "m3.large",
+				},
+			},
+		},
 	}
 
 	var got map[string]interface{}
