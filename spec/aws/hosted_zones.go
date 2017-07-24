@@ -1,4 +1,4 @@
-package hostedzones
+package aws
 
 // HostedZones contains the Hosted Zone IDs of the cluster.
 type HostedZones struct {

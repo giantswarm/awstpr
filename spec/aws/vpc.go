@@ -1,4 +1,4 @@
-package vpc
+package aws
 
 type VPC struct {
 	CIDR              string `json:"cidr" yaml:"cidr"`

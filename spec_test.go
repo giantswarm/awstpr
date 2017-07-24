@@ -7,9 +7,8 @@ import (
 
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/giantswarm/awstpr/aws"
-	"github.com/giantswarm/awstpr/aws/hostedzones"
-	"github.com/giantswarm/awstpr/aws/vpc"
+	"github.com/giantswarm/awstpr/spec"
+	"github.com/giantswarm/awstpr/spec/aws"
 	"github.com/giantswarm/clustertpr"
 	"github.com/giantswarm/clustertpr/calico"
 	"github.com/giantswarm/clustertpr/cluster"
@@ -131,15 +130,15 @@ func TestSpecYamlEncoding(t *testing.T) {
 				},
 			},
 		},
-		AWS: aws.AWS{
+		AWS: spec.AWS{
 			Region: "eu-central-1",
 			AZ:     "eu-central-1a",
-			VPC: vpc.VPC{
+			VPC: aws.VPC{
 				CIDR:              "10.0.0.0/16",
 				PrivateSubnetCIDR: "10.0.0.0/19",
 				PublicSubnetCIDR:  "10.0.128.0/20",
 			},
-			HostedZones: hostedzones.HostedZones{
+			HostedZones: aws.HostedZones{
 				API:     "xxxxxxxxxxxxxx",
 				Etcd:    "yyyyyyyyyyyyyy",
 				Ingress: "zzzzzzzzzzzzzz",
