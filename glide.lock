@@ -1,34 +1,19 @@
 hash: 93b97c1eb576443b6ddf21e830d2a67e70149dcd39b761be038ad127eece25b9
-updated: 2017-07-21T15:37:11.620787089+02:00
+updated: 2017-07-24T15:37:08.355782902+02:00
 imports:
 - name: github.com/emicklei/go-restful
-  version: 09691a3b6378b740595c1002f40c34dd5f218a22
+  version: ff4f55a206334ef123e4f79bbf348980da81ca46
   subpackages:
   - log
 - name: github.com/giantswarm/clustertpr
-  version: e7fdf931e1699bc9480aaf6d27664b539889918e
+  version: 9eeb968a00813525e4a8addb158e802320119aef
   subpackages:
-  - calico
-  - cluster
-  - customer
-  - docker
-  - docker/daemon
-  - docker/registry
-  - etcd
-  - kubernetes
-  - kubernetes/api
-  - kubernetes/dns
-  - kubernetes/hyperkube
-  - kubernetes/hyperkube/docker
-  - kubernetes/ingress
-  - kubernetes/kubectl
-  - kubernetes/kubectl/docker
-  - kubernetes/kubelet
-  - kubernetes/networksetup
-  - kubernetes/networksetup/docker
-  - kubernetes/ssh
-  - node
-  - vault
+  - spec
+  - spec/docker
+  - spec/kubernetes
+  - spec/kubernetes/hyperkube
+  - spec/kubernetes/kubectl
+  - spec/kubernetes/networksetup
 - name: github.com/giantswarm/operatorkit
   version: 2ed2153269a30dc8331b2fca4b6a314dad02f9b6
 - name: github.com/go-openapi/jsonpointer
@@ -40,7 +25,7 @@ imports:
 - name: github.com/go-openapi/swag
   version: 1d0bd113de87027671077d3c71eb3ac5d7dbba72
 - name: github.com/gogo/protobuf
-  version: e18d7aa8f8c624c915db340349aad4c49b10d173
+  version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
   subpackages:
   - proto
   - sortkeys
@@ -61,12 +46,15 @@ imports:
 - name: github.com/spf13/pflag
   version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
 - name: golang.org/x/net
-  version: e90d6d0afc4c315a0d87a568ae68577cc15149a0
+  version: f2499483f923065a842d38eb4c7f1927e6fc6e6d
   subpackages:
+  - html
+  - html/atom
   - http2
   - http2/hpack
   - idna
   - lex/httplex
+  - websocket
 - name: golang.org/x/text
   version: 2910a502d2bf9e43193af9d68ca516529614eed3
   subpackages:
@@ -83,7 +71,7 @@ imports:
 - name: gopkg.in/inf.v0
   version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: k8s.io/apimachinery
-  version: 85ace5365f33b16fc735c866a12e3c765b9700f2
+  version: 6134cb2da6d90597b0434e349f90f94fafc9ae51
   subpackages:
   - pkg/api/resource
   - pkg/apis/meta/v1
@@ -107,7 +95,7 @@ imports:
   - third_party/forked/golang/reflect
 testImports:
 - name: github.com/davecgh/go-spew
-  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  version: 782f4967f2dc4564575ca782fe2d04090b5faca8
   subpackages:
   - spew
 - name: github.com/kylelemons/godebug
@@ -125,4 +113,4 @@ testImports:
   - assert
   - require
 - name: gopkg.in/yaml.v2
-  version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
+  version: 25c4ec802a7d637f88d584ab26798e94ad14c13b

@@ -7,67 +7,51 @@ import (
 
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/giantswarm/awstpr/aws"
-	"github.com/giantswarm/awstpr/aws/hostedzones"
-	"github.com/giantswarm/awstpr/aws/vpc"
+	"github.com/giantswarm/awstpr/spec"
+	"github.com/giantswarm/awstpr/spec/aws"
 	"github.com/giantswarm/clustertpr"
-	"github.com/giantswarm/clustertpr/calico"
-	"github.com/giantswarm/clustertpr/cluster"
-	"github.com/giantswarm/clustertpr/customer"
-	"github.com/giantswarm/clustertpr/docker"
-	"github.com/giantswarm/clustertpr/docker/daemon"
-	"github.com/giantswarm/clustertpr/docker/registry"
-	"github.com/giantswarm/clustertpr/etcd"
-	"github.com/giantswarm/clustertpr/kubernetes"
-	"github.com/giantswarm/clustertpr/kubernetes/api"
-	"github.com/giantswarm/clustertpr/kubernetes/dns"
-	"github.com/giantswarm/clustertpr/kubernetes/hyperkube"
-	hyperkubedocker "github.com/giantswarm/clustertpr/kubernetes/hyperkube/docker"
-	"github.com/giantswarm/clustertpr/kubernetes/ingress"
-	"github.com/giantswarm/clustertpr/kubernetes/kubectl"
-	kubectldocker "github.com/giantswarm/clustertpr/kubernetes/kubectl/docker"
-	"github.com/giantswarm/clustertpr/kubernetes/kubelet"
-	"github.com/giantswarm/clustertpr/kubernetes/networksetup"
-	networksetupdocker "github.com/giantswarm/clustertpr/kubernetes/networksetup/docker"
-	"github.com/giantswarm/clustertpr/kubernetes/ssh"
-	"github.com/giantswarm/clustertpr/node"
-	"github.com/giantswarm/clustertpr/vault"
+	clustertprspec "github.com/giantswarm/clustertpr/spec"
+	clustertprdocker "github.com/giantswarm/clustertpr/spec/docker"
+	clustertprkubernetes "github.com/giantswarm/clustertpr/spec/kubernetes"
+	clustertprkuberneteshyperkube "github.com/giantswarm/clustertpr/spec/kubernetes/hyperkube"
+	clustertprkuberneteskubectl "github.com/giantswarm/clustertpr/spec/kubernetes/kubectl"
+	clustertprkubernetesnetworksetup "github.com/giantswarm/clustertpr/spec/kubernetes/networksetup"
 	"github.com/kylelemons/godebug/pretty"
 	"github.com/stretchr/testify/require"
 )
 
 func TestSpecYamlEncoding(t *testing.T) {
 	spec := Spec{
-		Cluster: clustertpr.Cluster{
-			Calico: calico.Calico{
+		Cluster: clustertpr.Spec{
+			Calico: clustertprspec.Calico{
 				CIDR:   16,
 				Domain: "giantswarm.io",
 				MTU:    1500,
 				Subnet: "10.1.2.3",
 			},
-			Cluster: cluster.Cluster{
+			Cluster: clustertprspec.Cluster{
 				ID: "abc12",
 			},
-			Customer: customer.Customer{
+			Customer: clustertprspec.Customer{
 				ID: "BooYa",
 			},
-			Docker: docker.Docker{
-				Daemon: daemon.Daemon{
+			Docker: clustertprspec.Docker{
+				Daemon: clustertprdocker.Daemon{
 					ExtraArgs: "--log-opt max-file=1",
 				},
 				ImageNamespace: "giantswarm",
-				Registry: registry.Registry{
+				Registry: clustertprdocker.Registry{
 					Endpoint: "http://giantswarm.io",
 				},
 			},
-			Etcd: etcd.Etcd{
+			Etcd: clustertprspec.Etcd{
 				AltNames: "",
 				Domain:   "etcd.giantswarm.io",
 				Port:     2379,
 				Prefix:   "giantswarm.io",
 			},
-			Kubernetes: kubernetes.Kubernetes{
-				API: api.API{
+			Kubernetes: clustertprspec.Kubernetes{
+				API: clustertprkubernetes.API{
 					AltNames:       "kubernetes,kubernetes.default",
 					ClusterIPRange: "172.31.0.0/24",
 					Domain:         "api.giantswarm.io",
@@ -76,53 +60,53 @@ func TestSpecYamlEncoding(t *testing.T) {
 					SecurePort:     443,
 				},
 				CloudProvider: "aws",
-				DNS: dns.DNS{
+				DNS: clustertprkubernetes.DNS{
 					IP: net.ParseIP("172.31.0.10"),
 				},
 				Domain: "cluster.giantswarm.io",
-				Hyperkube: hyperkube.Hyperkube{
-					Docker: hyperkubedocker.Docker{
+				Hyperkube: clustertprkubernetes.Hyperkube{
+					Docker: clustertprkuberneteshyperkube.Docker{
 						Image: "quay.io/giantswarm/hyperkube",
 					},
 				},
-				IngressController: ingress.IngressController{
+				IngressController: clustertprkubernetes.IngressController{
 					Domain:         "ingress.giantswarm.io",
 					WildcardDomain: "*.giantswarm.io",
 					InsecurePort:   30010,
 					SecurePort:     30011,
 				},
-				Kubectl: kubectl.Kubectl{
-					Docker: kubectldocker.Docker{
+				Kubectl: clustertprkubernetes.Kubectl{
+					Docker: clustertprkuberneteskubectl.Docker{
 						Image: "quay.io/giantswarm/docker-kubectl",
 					},
 				},
-				Kubelet: kubelet.Kubelet{
+				Kubelet: clustertprkubernetes.Kubelet{
 					AltNames: "kubernetes,kubernetes.default,kubernetes.default.svc",
 					Domain:   "worker.giantswarm.io",
 					Labels:   "etcd.giantswarm.io",
 					Port:     10250,
 				},
-				NetworkSetup: networksetup.NetworkSetup{
-					networksetupdocker.Docker{
+				NetworkSetup: clustertprkubernetes.NetworkSetup{
+					clustertprkubernetesnetworksetup.Docker{
 						Image: "quay.io/giantswarm/k8s-setup-network-environment",
 					},
 				},
-				SSH: ssh.SSH{
+				SSH: clustertprkubernetes.SSH{
 					PublicKeys: []string{
 						"ssh-rsa AAAAB3NzaC1yc",
 					},
 				},
 			},
-			Masters: []node.Node{
+			Masters: []clustertprspec.Node{
 				{
 					ID: "fyz88",
 				},
 			},
-			Vault: vault.Vault{
+			Vault: clustertprspec.Vault{
 				Address: "vault.giantswarm.io",
 				Token:   "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
 			},
-			Workers: []node.Node{
+			Workers: []clustertprspec.Node{
 				{
 					ID: "axx99",
 				},
@@ -131,15 +115,15 @@ func TestSpecYamlEncoding(t *testing.T) {
 				},
 			},
 		},
-		AWS: aws.AWS{
+		AWS: spec.AWS{
 			Region: "eu-central-1",
 			AZ:     "eu-central-1a",
-			VPC: vpc.VPC{
+			VPC: aws.VPC{
 				CIDR:              "10.0.0.0/16",
 				PrivateSubnetCIDR: "10.0.0.0/19",
 				PublicSubnetCIDR:  "10.0.128.0/20",
 			},
-			HostedZones: hostedzones.HostedZones{
+			HostedZones: aws.HostedZones{
 				API:     "xxxxxxxxxxxxxx",
 				Etcd:    "yyyyyyyyyyyyyy",
 				Ingress: "zzzzzzzzzzzzzz",
