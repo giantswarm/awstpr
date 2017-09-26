@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/emicklei/go-restful"
-	"github.com/emicklei/go-restful-swagger12"
+	"github.com/emicklei/go-restful/swagger"
 )
 
 // This example is functionally the same as the example in restful-user-resource.go
@@ -31,16 +31,14 @@ func (u UserService) Register() {
 		// docs
 		Doc("get all users").
 		Operation("findAllUsers").
-		Writes([]User{}).
-		Returns(200, "OK", nil))
+		Returns(200, "OK", []User{}))
 
 	ws.Route(ws.GET("/{user-id}").To(u.findUser).
 		// docs
 		Doc("get a user").
 		Operation("findUser").
 		Param(ws.PathParameter("user-id", "identifier of the user").DataType("string")).
-		Writes(User{}). // on the response
-		Returns(404, "Not Found", nil))
+		Writes(User{})) // on the response
 
 	ws.Route(ws.PUT("/{user-id}").To(u.updateUser).
 		// docs
@@ -67,11 +65,7 @@ func (u UserService) Register() {
 // GET http://localhost:8080/users
 //
 func (u UserService) findAllUsers(request *restful.Request, response *restful.Response) {
-	list := []User{}
-	for _, each := range u.users {
-		list = append(list, each)
-	}
-	response.WriteEntity(list)
+	response.WriteEntity(u.users)
 }
 
 // GET http://localhost:8080/users/1
@@ -133,11 +127,11 @@ func main() {
 		WebServicesUrl: "http://localhost:8080",
 		ApiPath:        "/apidocs.json",
 
-		// Optionally, specify where the UI is located
+		// Optionally, specifiy where the UI is located
 		SwaggerPath:     "/apidocs/",
 		SwaggerFilePath: "/Users/emicklei/Projects/swagger-ui/dist"}
 	swagger.InstallSwaggerService(config)
 
-	log.Print("start listening on localhost:8080")
+	log.Printf("start listening on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"io/ioutil"
-
 	restful "github.com/emicklei/go-restful"
+	"gopkg.in/vmihailenco/msgpack.v2"
+	"io/ioutil"
 )
 
 func TestMsgPack(t *testing.T) {
@@ -86,7 +86,7 @@ func expectMsgPackDocument(t *testing.T, r *http.Response, doc interface{}) {
 	data, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
-		t.Errorf("ExpectMsgPackDocument: unable to read response body :%v", err)
+		t.Error("ExpectMsgPackDocument: unable to read response body :%v", err)
 		return
 	}
 	// put the body back for re-reads
@@ -94,7 +94,7 @@ func expectMsgPackDocument(t *testing.T, r *http.Response, doc interface{}) {
 
 	err = msgpack.Unmarshal(data, doc)
 	if err != nil {
-		t.Errorf("ExpectMsgPackDocument: unable to unmarshal MsgPack:%v", err)
+		t.Error("ExpectMsgPackDocument: unable to unmarshal MsgPack:%v", err)
 	}
 }
 
@@ -103,7 +103,7 @@ func runRestfulMsgPackRouterServer() {
 	container := restful.NewContainer()
 	register(container)
 
-	log.Print("start listening on localhost:8090")
+	log.Printf("start listening on localhost:8090")
 	server := &http.Server{Addr: ":8090", Handler: container}
 	log.Fatal(server.ListenAndServe())
 }
