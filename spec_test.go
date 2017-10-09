@@ -57,6 +57,7 @@ func TestSpecYamlEncoding(t *testing.T) {
 					IP:             net.ParseIP("172.31.0.1"),
 					InsecurePort:   8080,
 					SecurePort:     443,
+					EncryptionKey:  "AWScv3423DEwcd",
 				},
 				CloudProvider: "aws",
 				DNS: clustertprkubernetes.DNS{

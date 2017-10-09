@@ -25,6 +25,7 @@ cluster:
       ip: 172.31.0.1
       insecurePort: 8080
       securePort: 443
+      encryptionKey: AWScv3423DEwcd
     cloudProvider: aws
     dns:
       ip: 172.31.0.10
