@@ -54,10 +54,10 @@ func TestSpecYamlEncoding(t *testing.T) {
 					AltNames:       "kubernetes,kubernetes.default",
 					ClusterIPRange: "172.31.0.0/24",
 					Domain:         "api.giantswarm.io",
+					EncryptionKey:  "AWScv3423DEwcd",
 					IP:             net.ParseIP("172.31.0.1"),
 					InsecurePort:   8080,
 					SecurePort:     443,
-					EncryptionKey:  "AWScv3423DEwcd",
 				},
 				CloudProvider: "aws",
 				DNS: clustertprkubernetes.DNS{
