@@ -22,6 +22,14 @@ go build github.com/giantswarm/awstpr
 However, since this project is just a specification used by the other projects, there only goal of building is to check
 whether the build is successful. This is just a library which needs to be vendored by the project aiming to use it.
 
+### Run the tests
+
+To run the tests.
+
+```
+go test $(glide novendor)
+```
+
 ## Contact
 
 - Mailing list: [giantswarm](https://groups.google.com/forum/!forum/giantswarm)
