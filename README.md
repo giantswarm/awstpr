@@ -24,10 +24,10 @@ whether the build is successful. This is just a library which needs to be vendor
 
 ### Run the tests
 
-To run the tests.
+Run the tests the standard way (needs Go 1.9).
 
 ```
-go test $(glide novendor)
+go test ./...
 ```
 
 ## Contact
